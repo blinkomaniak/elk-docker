@@ -88,14 +88,9 @@ services:
     depends_on:
       setup:
         condition: service_healthy
-    build:
-      context: .
-      dockerfile: Dockerfile-es01
-      args:
-        - STACK_VERSION=${STACK_VERSION}
-#    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
-#    labels:
-#      co.elastic.logs/module: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    labels:
+      co.elastic.logs/module: elasticsearch
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata01:/usr/share/elasticsearch/data
@@ -139,14 +134,9 @@ services:
     depends_on:
       es01:
         condition: service_healthy
-    build:
-      context: .
-      dockerfile: Dockerfile-kibana
-      args:
-        - STACK_VERSION=${STACK_VERSION}
-#    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
-#    labels:
-#      co.elastic.logs/module: kibana
+    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    labels:
+      co.elastic.logs/module: kibana
     volumes:
       - certs:/usr/share/kibana/config/certs
       - kibanadata:/usr/share/kibana/data
@@ -261,12 +251,7 @@ services:
         condition: service_healthy
       es01:
         condition: service_healthy
-    build:
-      context: .
-      dockerfile: Dockerfile-fleet
-      args:
-        - STACK_VERSION=${STACK_VERSION}
-#    image: docker.elastic.co/beats/elastic-agent:${STACK_VERSION}
+    image: docker.elastic.co/beats/elastic-agent:${STACK_VERSION}
 #    networks:
 #      - elastic
     volumes:

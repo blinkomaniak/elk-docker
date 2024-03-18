@@ -1,0 +1,12 @@
+ARG STACK_VERSION
+
+FROM docker.elastic.co/kibana/kibana:${STACK_VERSION}
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y iputils-ping inetutils-traceroute iproute2 curl telnet dnsutils vim && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+USER kibana
